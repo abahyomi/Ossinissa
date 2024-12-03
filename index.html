@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla Inicial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Transiciones suaves */
+        .transition-smooth {
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-[#FF0000] h-screen flex items-center justify-center">
+
+    <!-- Contenedor principal -->
+    <div class="relative w-full h-full overflow-hidden">
+        <!-- Navbar (oculto inicialmente) -->
+        <nav id="navbar" class="flex gap-6 p-6 items-center absolute top-0 left-0 w-full fade-up">
+            <img class="w-32" src="assets/02.png" alt="Logo">
+            <h2 class="text-lg">Archivo</h2>
+            <h2 class="text-lg">Sobre Canarias</h2>
+        </nav>
+
+        <!-- Rock (roca pequeña inicialmente) -->
+        <img id="rock" src="assets/02.png" alt="Rock"
+            class="absolute w-10 transition-smooth left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0">
+
+        <!-- Islands -->
+        <img id="islands" src="assets/CI_silueta.png" alt="Islands"
+            class="absolute p-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-smooth">
+    </div>
+
+    <script>
+        // Selección de elementos
+        const rock = document.getElementById("rock");
+        const islands = document.getElementById("islands");
+        const navbar = document.getElementById("navbar");
+
+        // Evento de clic en las islas
+        islands.addEventListener("click", () => {
+            // Ocultar islas con transición
+            islands.classList.add("hidden");
+
+            // Mostrar y centrar la roca con transición
+            rock.style.opacity = "1";
+            rock.style.transform = "translate(-50%, -50%) scale(40)";
+
+            // Mostrar navbar con efecto de fade-up después de la animación de la roca
+            setTimeout(() => {
+                navbar.classList.add("active");
+            }, 1000); // Espera a que termine la transición de la roca
+        });
+    </script>
+
+</body>
+
+</html>
